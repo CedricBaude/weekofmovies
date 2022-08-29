@@ -19,22 +19,22 @@
     <h3>Ajouter un film</h3>
 
     <div class="center">
-        <form action="">
+        <form action="" id="movie-form">
             <div>
                 <label for="title">Titre du film</label>
-                <input type="text" id="title" placeholder="Titre du film">
+                <input type="text" id="title" name="title" placeholder="Titre du film">
             </div>
             <div>
                 <label for="year">Année du film</label>
-                <input type="number" min="1900" id="year" value="2010">
+                <input type="number" min="1900" id="year" name="year" value="2010">
             </div>
             <div>
                 <label for="duration">Durée (ex: 2h15)</label>
-                <input type="text" id="duration" placeholder="Durée">
+                <input type="text" id="duration" name="duration" placeholder="Durée">
             </div>
             <div>
                 <label for="genre">Genre</label>
-                <select id="genre" multiple size="9">
+                <select id="genre" name="genre" multiple size="9">
                     <option>Action</option>
                     <option>Comédie</option>
                     <option>Drame</option>

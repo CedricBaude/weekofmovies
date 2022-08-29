@@ -1,15 +1,54 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script src="./index.js" defer></script>
+    <script src="./js/index.js" defer></script>
+    <link rel="stylesheet" href="./css/style.css">
     <script src="./libs/calendar/vanilla-calendar-min.js"></script>
     <link rel="stylesheet" href="./libs/calendar/vanilla-calendar-min.css">
     <title>Ma semaine de films</title>
 </head>
+
 <body>
+    <h1>Semaine de films</h1>
     <div id="myCalendar" class="vanilla-calendar"></div>
+
+    <h3>Ajouter un film</h3>
+
+    <div class="center">
+        <form action="">
+            <div>
+                <label for="title">Titre du film</label>
+                <input type="text" id="title" placeholder="Titre du film">
+            </div>
+            <div>
+                <label for="year">Année du film</label>
+                <input type="number" min="1900" id="year" value="2010">
+            </div>
+            <div>
+                <label for="duration">Durée (ex: 2h15)</label>
+                <input type="text" id="duration" placeholder="Durée">
+            </div>
+            <div>
+                <label for="genre">Genre</label>
+                <select id="genre" multiple size="9">
+                    <option>Action</option>
+                    <option>Comédie</option>
+                    <option>Drame</option>
+                    <option>Fantastique</option>
+                    <option>Horreur</option>
+                    <option>Policier</option>
+                    <option>Romance</option>
+                    <option>Science-Fiction</option>
+                    <option>Thriller</option>
+                </select>
+            </div>
+            <button type="submit">Ajouter le film</button>
+        </form>
+    </div>
 </body>
+
 </html>

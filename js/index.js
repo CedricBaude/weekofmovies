@@ -21,5 +21,14 @@ function addMovie(e) {
     const year = formData.get('year');
     const duration = formData.get('duration');
     const genre = formData.getAll('genre');
-    console.log('movie', { title, year, duration, genre, selectedDate });
+    const newMovie = { title, year: Number(year), duration, genre, selectedDate: selectedDate };
+    console.log('newMovie', newMovie);
+    saveMovie(newMovie);
+    movieForm.reset();
+}
+
+function saveMovie(movie) {
+    let movies = JSON.parse(localStorage.getItem("movies")) || [];
+    movies = [...movies, movie];
+    localStorage.setItem("movies", JSON.stringify(movies));
 }

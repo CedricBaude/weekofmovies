@@ -15,6 +15,7 @@ const movieForm = document.querySelector('#movie-form');
 movieForm.addEventListener('submit', addMovie);
 
 const movieList = document.querySelector('#movie-list');
+movieList.addEventListener('click', deleteMovie);
 
 function addMovie(e) {
     e.preventDefault();
@@ -23,7 +24,14 @@ function addMovie(e) {
     const year = formData.get('year');
     const duration = formData.get('duration');
     const genres = formData.getAll('genres');
-    const newMovie = { title, year: Number(year), duration, genres, date: selectedDate };
+    const newMovie = {
+        id: Date.now(),
+        title,
+        year: Number(year),
+        duration,
+        genres,
+        date: selectedDate
+    };
     console.log('newMovie', newMovie);
     saveMovie(newMovie);
     movieForm.reset();
@@ -50,6 +58,7 @@ function displayMovie(date) {
         <span>année: ${movie.year}</span>
         <span>durée: ${movie.duration}</span>
         <span>genre: ${movie.genres.join(", ")}</span>
+        <button data-id="${movie.id}">suppr.</button>
         </div>
         </div>
         `;
@@ -61,7 +70,7 @@ function displayMovie(date) {
         <h3> Aucun film n'est prévu ce jour là.</h3>
         <div>Vous pouvez ajouter un film grâce au formulaire.</div>
         </div>
-        `
+        `;
     }
 }
 
@@ -75,6 +84,7 @@ function displayMovies(movies) {
         <span>année: ${movie.year}</span>
         <span>durée: ${movie.duration}</span>
         <span>genre: ${movie.genres.join(", ")}</span>
+        <button data-id="${movie.id}">suppr.</button>
         </div>
         </div>
         `;
@@ -82,4 +92,16 @@ function displayMovies(movies) {
     });
     console.log('content', content);
     movieList.innerHTML = content.join('');
+}
+
+function deleteMovie(e) {
+    if (e.target.nodeName.toLowerCase() !== 'button') {
+        return;
+    }
+    const movieId = Number(e.target.dataset.id);
+    console.log('movieId', movieId);
+    let movies = JSON.parse(localStorage.getItem('movies')) || [];
+    movies = movies.filter(movie => movie.id !== movieId);
+    localStorage.setItem('movies', JSON.stringify(movies));
+    displayMovie(selectedDate);
 }

@@ -35,12 +35,14 @@ function saveMovie(movie) {
     localStorage.setItem("movies", JSON.stringify(movies));
 }
 
-function displayMovie(date){
+function displayMovie(date) {
     let movies = JSON.parse(localStorage.getItem("movies")) || [];
-    let movie = movies.find(m => {
+    let moviesAtThisDate = movies.filter((m) => {
         return m.date === date;
     });
-    if(movie){
+    if (moviesAtThisDate.length === 1) {
+        console.log('movie to display', moviesAtThisDate);
+        const movie = moviesAtThisDate[0];
         movieList.innerHTML = `
         <div>
         <h3>${movie.title}</h3>
@@ -51,5 +53,33 @@ function displayMovie(date){
         </div>
         </div>
         `;
+    } else if (moviesAtThisDate.length > 1) {
+        displayMovies(moviesAtThisDate);
+    } else {
+        movieList.innerHTML = `
+        <div>
+        <h3> Aucun film n'est prévu ce jour là.</h3>
+        <div>Vous pouvez ajouter un film grâce au formulaire.</div>
+        </div>
+        `
     }
+}
+
+function displayMovies(movies) {
+    let content = [];
+    movies.forEach((movie) => {
+        const singleMovieHTML = `
+        <div>
+        <h3>${movie.title}</h3>
+        <div>
+        <span>année: ${movie.year}</span>
+        <span>durée: ${movie.duration}</span>
+        <span>genre: ${movie.genres.join(", ")}</span>
+        </div>
+        </div>
+        `;
+        content = [...content, singleMovieHTML];
+    });
+    console.log('content', content);
+    movieList.innerHTML = content.join('');
 }
